@@ -1199,8 +1199,30 @@ onPlayState='running';});
 
 
 // ── GITHUB PROJECTS ──
+function buildFallbackPreview(repo){
+  if(!repo || !repo.name) return null;
+
+  var title = String(repo.name).replace(/[-_]+/g,' ').trim().toUpperCase();
+  var lang = (repo.language || 'CODE').toUpperCase();
+  if(title.length > 24) title = title.slice(0, 24) + '…';
+
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">' +
+    '<rect width="1200" height="675" fill="#0C0A05"/>' +
+    '<rect x="40" y="40" width="1120" height="595" rx="32" fill="#F5EDD6"/>' +
+    '<rect x="70" y="76" width="1060" height="140" rx="20" fill="#1A1208"/>' +
+    '<text x="100" y="152" font-family="IBM Plex Mono, monospace" font-size="56" font-weight="600" fill="#F5EDD6">' + escHtml(title) + '</text>' +
+    '<rect x="70" y="248" width="320" height="20" rx="10" fill="#C4500A"/>' +
+    '<rect x="70" y="292" width="540" height="20" rx="10" fill="#B89B62"/>' +
+    '<rect x="70" y="336" width="460" height="20" rx="10" fill="#B89B62"/>' +
+    '<rect x="760" y="248" width="300" height="220" rx="24" fill="#0C0A05"/>' +
+    '<text x="810" y="365" font-family="IBM Plex Mono, monospace" font-size="42" fill="#D4BA8A">' + escHtml(lang) + '</text>' +
+    '</svg>';
+
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+}
+
 async function getRepoPreviewImage(repo){
-  if(!repo || !repo.owner || !repo.name) return null;
+  if(!repo || !repo.owner || !repo.name) return buildFallbackPreview(repo);
 
   var defaultBranch = repo.default_branch || 'main';
   var candidates = [
@@ -1226,7 +1248,7 @@ async function getRepoPreviewImage(repo){
     } catch (err) {}
   }
 
-  return null;
+  return buildFallbackPreview(repo);
 }
 
 async function fetchGitHubRepos(owner){
