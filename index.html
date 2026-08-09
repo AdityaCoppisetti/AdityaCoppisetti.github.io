@@ -716,8 +716,24 @@ nav.scrolled{padding:.6rem 3rem;}
 .gh-row:hover{background:var(--cream);transform:translateX(4px) translateY(-2px);box-shadow:0 12px 28px rgba(26,18,8,.1);}
 .gh-main{display:flex;align-items:flex-start;gap:.9rem;min-width:0;}
 .gh-text{display:flex;flex-direction:column;min-width:0;flex:1;}
-.gh-preview-wrap{flex-shrink:0;width:100%;max-width:240px;overflow:hidden;border-radius:4px;border:1px solid rgba(26,18,8,.08);background:rgba(26,18,8,.03);box-shadow:0 3px 8px rgba(26,18,8,.04);}
-.gh-preview{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;filter:saturate(.92) contrast(1.02);}
+.gh-preview-wrap {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 240px;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid rgba(26,18,8,.08);
+  background: rgba(26,18,8,.03);
+  box-shadow: 0 3px 8px rgba(26,18,8,.04);
+}
+
+.gh-preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: saturate(.92) contrast(1.02);
+}
 .gh-name{
   font-family:'Bebas Neue',sans-serif;
   font-size:clamp(1rem,1.8vw,1.3rem);
